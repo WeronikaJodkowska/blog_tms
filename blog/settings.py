@@ -126,7 +126,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ENV_VAR = os.environ.get('ENV_VAR')
 
 LOGGING = {
    'version': 1,
@@ -147,3 +146,5 @@ LOGGING = {
        }
    }
 }
+
+ENV_VAR = os.environ.get('ENV_VAR')
