@@ -148,3 +148,7 @@ LOGGING = {
 }
 
 ENV_VAR = os.environ.get('ENV_VAR')
+
+MY_SETTING_1 = os.environ.get('MY_SETTING_1')
+MY_SETTING_2 = os.environ.get('MY_SETTING_2')
+MY_SETTING_3 = os.environ.get('MY_SETTING_3')
