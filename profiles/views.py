@@ -1,8 +1,11 @@
 import os
+import logging
 
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
-import logging
+
+from profiles.models import Address
 
 logger = logging.getLogger(__name__)
 
@@ -30,3 +33,12 @@ def profiles(request):
         return HttpResponse(f"Profile view with GET params: {', '.join(message)}")
     return HttpResponse("Profile view")
 
+
+# 19_homework. 2. Добавить во вьюшку поиск по GET параметру используя соответствующее поле в модели.
+def get_address(request):
+    city = request.GET.get("city")
+    if city:
+        address_list = Address.objects.filter(city__contains=city)
+    else:
+        address_list = Address.objects.all()
+    return HttpResponse(", ".join([x.user.username for x in address_list]) + f" live in {city}")

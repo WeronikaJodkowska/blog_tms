@@ -10,3 +10,12 @@ def index(request):
     else:
         post_list = Post.objects.all()
     return HttpResponse(", ".join([x.title for x in post_list]))
+
+
+def get_user_posts(request):
+    author = request.user
+    if author:
+        posts = Post.objects.filter(author__exact=author)
+    else:
+        posts = Post.objects.all()
+    return HttpResponse(", ".join([x.title for x in posts]))
