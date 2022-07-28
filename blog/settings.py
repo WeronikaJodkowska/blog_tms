@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts',
-    'profiles'
+    'profiles',
+    'shop'
 ]
 
 MIDDLEWARE = [
@@ -78,9 +79,12 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'NAME': os.environ.get('DATABASE_PATH'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django',
+        "USER": "django",
+        "PASSWORD": "django",
+        "HOST": "localhost",
+        "PORT": 5432,
     }
 }
 
