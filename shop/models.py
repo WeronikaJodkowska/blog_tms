@@ -22,3 +22,6 @@ class Purchase(models.Model):
         Product, related_name="purchases", on_delete=models.CASCADE
     )
     count = models.IntegerField()
+
+    def __str__(self):
+        return f"Bought {self.product.title} by: {self.user}. \t"
