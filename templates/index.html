@@ -5,5 +5,14 @@
 {% block content %}
   <div class="container">
     <h1>Homepage</h1>
+    <div class="row">
+      {% for post in posts %}
+        <div class="col-4">
+          <h2>{{ post.title }}</h2>
+          <h6>Author: {{ post.author }}</h6>
+          <p>{{ post.text|truncatechars:200 }}</p>
+        </div>
+        <div class="col-2"></div>
+      {% endfor %}
   </div>
 {% endblock %}

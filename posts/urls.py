@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 
-from posts.views import get_user_posts
+from posts.views import get_user_posts, post_add
 
 urlpatterns = [
     path('', get_user_posts, name='get_user_posts'),
+    path('post-add/', post_add, name='post-add'),
+
 ]
