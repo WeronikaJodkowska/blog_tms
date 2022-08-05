@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 
-from profiles.views import get_address
+from profiles.views import get_address, register
 
 urlpatterns = [
     path('', get_address, name='get_address'),
+    path('register/', register, name='register'),
+
 ]

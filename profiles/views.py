@@ -4,7 +4,10 @@ import logging
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
+from profiles.forms import RegisterForm
 from profiles.models import Address
 
 logger = logging.getLogger(__name__)
@@ -42,3 +45,21 @@ def get_address(request):
     else:
         address_list = Address.objects.all()
     return HttpResponse(", ".join([x.user.username for x in address_list]) + f" live in {city}")
+
+
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = User(
+                email=form.cleaned_data["email"],
+                username=form.cleaned_data["email"],
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+            )
+            user.set_password(form.cleaned_data["password"])
+            user.save()
+            return redirect("/")
+    else:
+        form = RegisterForm()
+    return render(request, "register.html", {"form": form})
