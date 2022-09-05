@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 
-from profiles.views import get_address, register
+from profiles.views import get_address, register, login_view, logout_view
 
 urlpatterns = [
     path('', get_address, name='get_address'),
     path('register/', register, name='register'),
-
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
 ]

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Login</h1>
+    <div class="row">
+      <div class="col-7">
+        <form method="POST" class="post-form">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+      <div class="col-5">
+        <img src="https://picsum.photos/seed/picsum/400/300" class="rounded float-end">
+      </div>
+    </div>
+  </div>
+{% endblock %}
