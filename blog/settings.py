@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    "rest_framework.authtoken",
     'crispy_forms',
     'crispy_bootstrap5',
     'posts',
@@ -174,3 +175,13 @@ ENV_VAR = os.environ.get('ENV_VAR')
 MY_SETTING_1 = os.environ.get('MY_SETTING_1')
 MY_SETTING_2 = os.environ.get('MY_SETTING_2')
 MY_SETTING_3 = os.environ.get('MY_SETTING_3')
+
+
+REST_FRAMEWORK = {
+   "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+   "DEFAULT_AUTHENTICATION_CLASSES": [
+       "rest_framework.authentication.BasicAuthentication",
+       "rest_framework.authentication.SessionAuthentication",
+   ],
+   "PAGE_SIZE": 10,
+}
