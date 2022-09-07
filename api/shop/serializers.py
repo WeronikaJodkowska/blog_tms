@@ -17,3 +17,7 @@ class PurchaseSerializer(serializers.Serializer):
 
     def get_total(self, obj):
         return obj.product.cost * obj.count
+
+
+class PurchaseCreateSerializer(serializers.Serializer):
+    count = serializers.IntegerField()

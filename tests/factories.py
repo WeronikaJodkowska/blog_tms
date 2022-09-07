@@ -24,6 +24,7 @@ class UserFactory(DjangoModelFactory):
 
     username = factory.Faker("word")
     email = factory.Faker("email")
+    password = factory.Faker("md5")
 
 
 class ProductFactory(DjangoModelFactory):

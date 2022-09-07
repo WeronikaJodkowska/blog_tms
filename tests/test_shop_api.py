@@ -5,6 +5,7 @@ from django.test.client import Client
 from shop.models import Purchase
 from tests.factories import PostFactory, UserFactory, PurchaseFactory, ProductFactory
 
+
 @pytest.mark.django_db
 class TestPurchasesViews:
     def setup_method(self):
@@ -44,3 +45,10 @@ class TestPurchasesViews:
         )
 
         assert Purchase.objects.count() == 2
+
+    def test_create_purchase(self):
+        product = ProductFactory()
+        self.client.force_login(self.user)
+
+        response = self.client.post(f"/api/products/{product.id}/purchase/", data={"count": 1})
+        assert response.status_code == 201

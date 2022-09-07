@@ -19,7 +19,7 @@ class RegisterView(CreateAPIView):
             username=serializer.validated_data["email"],
             first_name=serializer.validated_data["first_name"],
             last_name=serializer.validated_data["last_name"],
-            password=serializer.validated_data["password"]
+            password=serializer.validated_data["password"],
         )
         return Response(status=status.HTTP_201_CREATED)
 
@@ -28,7 +28,9 @@ class LoginView(CreateAPIView):
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
-        user = authenticate(request, username=request.POST["email"], password=request.POST["password"])
+        user = authenticate(
+            request, username=request.data["email"], password=request.data["password"]
+        )
         if user is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
         token = Token.objects.get_or_create(user=user)[0].key
