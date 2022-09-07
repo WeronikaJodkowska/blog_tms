@@ -1,36 +1,21 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from rest_framework import viewsets, status
+from rest_framework.response import Response
 
-from posts.forms import PostForm
+from api.posts.serializers import PostSerializer
 from posts.models import Post
 
 
-def index(request):
-    posts = Post.objects.all()
-    return render(request, "index.html", {"posts": posts})
+class PostViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows posts to be viewed.
+    """
 
+    queryset = Post.objects.all().order_by("-created_at")
+    serializer_class = PostSerializer
+    permission_classes = []
 
-def get_user_posts(request):
-    author = request.user
-    if author:
-        posts = Post.objects.filter(author__exact=author)
-    else:
-        posts = Post.objects.all()
-    return HttpResponse(", ".join([x.title for x in posts]))
-
-
-def post_add(request):
-    if not request.user.is_authenticated:
-        return HttpResponse("You aren't authenticated!")
-
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            Post.objects.create(author=request.user, **form.cleaned_data)
-            return redirect('index')
-    else:
-        form = PostForm()
-    return render(request, 'post_add.html', {'form': form})
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        Post.objects.create(**serializer.validated_data)
+        return Response(status=status.HTTP_201_CREATED)

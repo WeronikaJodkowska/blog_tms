@@ -26,6 +26,7 @@ urlpatterns = [
     path('profiles/', include('profiles.urls')),
     path('posts/', include('posts.urls')),
     path('shop/', include('shop.urls')),
+    path('api/', include('api.urls', namespace='api')),
 ]
 
 
