@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Homepage{% endblock %}
 
@@ -6,13 +7,29 @@
   <div class="container">
     <h1>Homepage</h1>
     <div class="row">
-      {% for post in posts %}
+      {% for product in paginator %}
+        {% if forloop.counter0|divisibleby:3 %}
+          </div><div class="row mb-3">
+        {% endif %}
         <div class="col-4">
-          <h2>{{ post.title }}</h2>
-          <h6>Author: {{ post.author }}</h6>
-          <p>{{ post.text|truncatechars:200 }}</p>
-        </div>l
-        <div class="col-2"></div>
+          <div class="card">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" class="img-fluid img-thumbnail" alt="{{ product.title }}">
+            {% else %}
+              <img src="{% static 'no-image.jpg' %}" class="img-fluid img-thumbnail" alt="{{ product.title }}">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ product.title }}</h5>
+              <p class="card-text">
+                Color: {{ product.color }}<br>
+                Cost: {{ product.cost }}
+              </p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
       {% endfor %}
+    </div>
+    {% include "pagination.html" %}
   </div>
 {% endblock %}

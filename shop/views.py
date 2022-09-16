@@ -1,56 +1,34 @@
-from django.db.models import Sum, Max, Min, F
-from django.http import HttpResponse
+from django.core.cache import cache
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
-from shop.models import Product, Purchase
+from shop.models import Product
 from shop.services import get_sorted_product
 
 
 def products(request):
-    if request.GET.get("color"):
-        product_list = Product.objects.filter(color=request.GET.get("color"))
-    else:
-        product_list = Product.objects.all()
+    color = request.GET.get("color")
     order_by = request.GET.get("order_by")
+    page_number = request.GET.get("page")
+    user_id = request.user.id if request.user.is_authenticated else 0
+    cache_key = f"products_view.{user_id}.{color}.{order_by}.{page_number}"
 
-    product_list = get_sorted_product(product_list, order_by)
-    return render(request, "index.html", {"product_list": product_list})
+    result = cache.get(cache_key)
+    if result is not None:
+        return result
 
-# 20 homework. 3. Добавить сортировку товаров через GET параметр по цене,
-# продажам (по общей стоимости продаж) и популярности (по количеству проданных).
-def get_products_by_price(request):
-    sort_by = request.GET.get("sort", "l2h")
-    if sort_by == "l2h":
-        product_list = Product.objects.order_by("cost")
-    elif sort_by == "h2l":
-        product_list = Product.objects.order_by("-cost")
+    if color:
+        product_list = Product.objects.filter(color=color)
     else:
         product_list = Product.objects.all()
-    return HttpResponse(", ".join([x.title for x in product_list]))
 
+    order_by = request.GET.get("order_by")
+    product_list = get_sorted_product(product_list, order_by)
 
-def get_products_by_purchases(request):
-    sort_by = request.GET.get("sort", "l2h")
-    if sort_by == "l2h":
-        result = Purchase.objects.values('product__title').annotate(purchase_count=Sum(F("count") * F("product__cost")))\
-            .order_by("purchase_count")
-    elif sort_by == "h2l":
-        result = Purchase.objects.values('product__title').annotate(purchase_count=Sum(F("count") * F("product__cost")))\
-            .order_by("-purchase_count")
-    else:
-        result = Purchase.objects.values('product__title').annotate(purchase_count=Sum(F("count") * F("product__cost")))
-    return HttpResponse(result)
+    page_number = request.GET.get("page")
+    paginator = Paginator(product_list, 15)
+    paginator = paginator.get_page(page_number)
 
-
-def get_popular_product(request):
-    sort_by = request.GET.get("sort", "max")
-    if sort_by == "max":
-        result = Purchase.objects.aggregate(max_purchase=Max("count"))
-        product = Product.objects.filter(purchases__count__exact=result['max_purchase'])
-    elif sort_by == "min":
-        result = Purchase.objects.aggregate(max_purchase=Min("count"))
-        product = Product.objects.filter(purchases__count__exact=result['max_purchase'])
-
-    else:
-        product = Product.objects.all()
-    return HttpResponse(product)
+    response = render(request, "index.html", {"paginator": paginator})
+    cache.set(cache_key, response, 60 * 60)
+    return response

@@ -17,18 +17,20 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
+from posts.views import index, post_add
+from profiles.views import profiles, register, login_view, logout_view
 from shop.views import products
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', products, name='index'),
-    path('profiles/', include('profiles.urls')),
-    path('posts/', include('posts.urls')),
-    path('shop/', include('shop.urls')),
-    path('api/', include('api.urls', namespace='api')),
+    path("admin/", admin.site.urls),
+    path("", products, name="index"),
+    path("post-add/", post_add, name="post-add"),
+    path("profiles/", profiles, name="profiles"),
+    path("register/", register, name="register"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
+    path("api/", include("api.urls", namespace="api")),
 ]
-
 
 if settings.DEBUG:
     from django.conf.urls.static import static

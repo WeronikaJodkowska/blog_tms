@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 
-from shop.views import products, get_products_by_price, get_products_by_purchases, get_popular_product
+from shop.views import products
 
 urlpatterns = [
     path('', products, name='products'),
-    path('get_products_by_price/', get_products_by_price, name='get_products_by_price'),
-    path('get_products_by_purchases/', get_products_by_purchases, name='get_products_by_purchases'),
-    path('get_popular_product/', get_popular_product, name='get_popular_product'),
 ]
+

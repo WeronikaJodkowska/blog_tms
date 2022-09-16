@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-ltu^84&s@j_3sauht=(1v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DEBUG', True))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_filters",
     'crispy_forms',
     'crispy_bootstrap5',
+    'blog',
     'posts',
     'profiles',
     'shop'
@@ -92,9 +93,18 @@ DATABASES = {
         'NAME': 'django',
         "USER": "django",
         "PASSWORD": "django",
-        "HOST": "localhost",
+        "HOST": os.environ.get("DATABASE_HOST", "localhost"),
         "PORT": 5432,
     }
+}
+
+REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+
+CACHES = {
+   "default": {
+       "BACKEND": "django_redis.cache.RedisCache",
+       "LOCATION": f"redis://{REDIS_HOST}:6379",
+   }
 }
 
 
@@ -137,7 +147,7 @@ STATICFILES_FINDERS = [
    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-STATICFILES_DIRS = [BASE_DIR / "blog_tms/static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STATIC_ROOT = None
 STATIC_URL = "static/"
@@ -186,3 +196,4 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "PAGE_SIZE": 10,
 }
+
