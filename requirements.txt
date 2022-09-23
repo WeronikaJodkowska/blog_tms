@@ -60,3 +60,4 @@ w3lib==2.0.1
 zope.interface==5.4.0
 redis==4.3.4
 django-redis==5.2.0
+django-rq==2.5.1

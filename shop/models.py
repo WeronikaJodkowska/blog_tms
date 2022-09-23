@@ -3,6 +3,8 @@ from django.db import models
 
 
 COLOR_CHOICES = (('red', 'Red color'), ('green', 'Green color'), ('white', 'White color'))
+STATUS_CHOICES = (('IN_STOCK', ' In Stock'), ('BACK_ORDER', 'Back order'),
+                  ('DISCONTINUED', 'Discontinued'), ('OUT_OF_STOCK', 'Out of Stock'))
 
 
 class Product(models.Model):
@@ -12,6 +14,7 @@ class Product(models.Model):
     cost = models.IntegerField()
     external_id = models.CharField(max_length=200, blank=True, null=True)
     link = models.CharField(max_length=200, blank=True, null=True)
+    status = models.CharField(max_length=200, choices=STATUS_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return f"Product: {self.title}"

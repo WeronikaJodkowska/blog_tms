@@ -24,3 +24,17 @@ services:
       - REDIS_HOST=redis
     command: |
       python manage.py runserver 0.0.0.0:8000
+      
+
+  worker:
+    image: blog_tms_django:latest
+    volumes:
+     - ./:/app/
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - DATABASE_HOST=postgres
+      - REDIS_HOST=redis
+    command: |
+      python manage.py rqworker default

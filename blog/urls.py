@@ -23,6 +23,7 @@ from shop.views import products
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("django-rq/", include("django_rq.urls")),
     path("", products, name="index"),
     path("post-add/", post_add, name="post-add"),
     path("profiles/", profiles, name="profiles"),

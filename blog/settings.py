@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_filters",
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_rq',
     'blog',
     'posts',
     'profiles',
@@ -107,6 +108,14 @@ CACHES = {
    }
 }
 
+RQ_QUEUES = {
+   "default": {
+       "HOST": REDIS_HOST,
+       "PORT": 6379,
+       "DB": 0,
+       "DEFAULT_TIMEOUT": 360,
+   },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
