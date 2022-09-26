@@ -12,25 +12,24 @@ services:
       - POSTGRES_PASSWORD=django
 
   django: &base_container
-    build: .
+    image: blog_tms_django:latest
     ports:
       - "8000:8000"
     volumes:
-     - ./:/app/
+      - ./:/app/
     depends_on:
       - postgres
+      - redis
     environment:
       - DATABASE_HOST=postgres
       - REDIS_HOST=redis
     command: |
       python manage.py runserver 0.0.0.0:8000
-
   worker:
     <<: *base_container
     ports: []
     command: |
       python manage.py rqworker default
-
   bot:
     <<: *base_container
     ports: []
