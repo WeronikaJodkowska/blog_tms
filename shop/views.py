@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 
 from shop.models import Product
-from shop.services import get_sorted_product
+from shop.services import get_sorted_product, cost_out_of_stock
 
 
 def products(request):
@@ -16,6 +16,7 @@ def products(request):
     result = cache.get(cache_key)
     if result is not None:
         return result
+    cost_out_of_stock.delay(request)
 
     if color:
         product_list = Product.objects.filter(color=color)
@@ -31,4 +32,5 @@ def products(request):
 
     response = render(request, "index.html", {"paginator": paginator})
     cache.set(cache_key, response, 60 * 60)
+
     return response

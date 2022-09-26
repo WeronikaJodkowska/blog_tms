@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_rq',
     'blog',
+    'congenial_bot',
     'posts',
     'profiles',
     'shop'
@@ -206,3 +207,5 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
 }
 
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")

@@ -1,5 +1,6 @@
 from django.db.models import Sum, F, QuerySet
 from django_rq import job
+from django.core.cache import cache
 
 from scrapy import signals
 from scrapy.crawler import CrawlerProcess
@@ -8,6 +9,10 @@ from scrapy.utils.project import get_project_settings
 
 from shop.models import Product
 from shop.spiders import OmaSpider
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def get_sorted_product(queryset: QuerySet, order_by: str):
@@ -37,3 +42,13 @@ def run_oma_spider(dry_run):
     process = CrawlerProcess(get_project_settings())
     process.crawl(OmaSpider)
     process.start()
+
+
+@job
+def cost_out_of_stock(request):
+    # logger.info("run_products_update is called")
+    cost = request.GET.get("cost")
+
+    if cost == 0:
+        Product.objects.filter(cost=0).update(some_date_field="Out of Stock")
+
