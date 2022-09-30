@@ -30,13 +30,13 @@ services:
     ports: []
     command: |
       python manage.py rqworker default
-  bot:
-    <<: *base_container
-    ports: []
-    environment:
-      - DATABASE_HOST=postgres
-      - REDIS_HOST=redis
-      - BOT_TOKEN=5526476535:AAFuU4xZCxgb2yBPXAwpOW2msuLvtOGifDY
-      - CHAT_ID=1242849836
-    command: |
-      python manage.py run_bot
+#  bot:
+#    <<: *base_container
+#    ports: []
+#    environment:
+#      - DATABASE_HOST=postgres
+#      - REDIS_HOST=redis
+#      - BOT_TOKEN=5526476535:AAFuU4xZCxgb2yBPXAwpOW2msuLvtOGifDY
+#      - CHAT_ID=1242849836
+#    command: |
+#      python manage.py run_bot

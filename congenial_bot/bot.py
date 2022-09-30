@@ -2,7 +2,7 @@ from asgiref.sync import async_to_sync
 from django.conf import settings
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 
-from congenial_bot.services import start, message, func
+from congenial_bot.services import start, message
 
 
 def run_bot():
