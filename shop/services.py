@@ -1,6 +1,7 @@
-from django.db.models import Sum, F, QuerySet
+from django.db.models import Sum, F, QuerySet, FloatField
 from django_rq import job
 from django.core.cache import cache
+from django.db import models
 
 from scrapy import signals
 from scrapy.crawler import CrawlerProcess
@@ -52,3 +53,9 @@ def cost_out_of_stock(request):
     if cost == 0:
         Product.objects.filter(cost=0).update(some_date_field="Out of Stock")
 
+
+def get_popular_products():
+    queryset = Product.objects.annotate(
+        sold=Sum(F("cost") * F("purchases__count"), output_field=models.FloatField(), default=0)
+    )
+    return queryset.order_by("-sold")

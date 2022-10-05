@@ -1,12 +1,15 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from api.shop.serializers import PurchaseSerializer, ProductSerializer, PurchaseCreateSerializer
+from api.shop.serializers import PurchaseSerializer, ProductSerializer, PurchaseCreateSerializer, \
+    PopularProductSerializer
 from shop.models import Purchase, Product
 from rest_framework import generics, status
 from rest_framework import filters as rest_filters
 from django_filters import FilterSet, NumberFilter
 from django_filters.rest_framework import DjangoFilterBackend
+
+from shop.services import get_popular_products
 
 
 class ProductFilter(FilterSet):
@@ -59,3 +62,8 @@ class ProductPurchaseView(generics.CreateAPIView):
             return Response(status=status.HTTP_201_CREATED)
         except Product.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class PopularProductList(generics.ListAPIView):
+    serializer_class = PopularProductSerializer
+    queryset = get_popular_products()

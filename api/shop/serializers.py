@@ -10,6 +10,10 @@ class ProductSerializer(serializers.Serializer):
     cost = serializers.IntegerField()
 
 
+class PopularProductSerializer(ProductSerializer):
+    sold = serializers.IntegerField()
+
+
 class PurchaseSerializer(serializers.Serializer):
     user = UserSerializer()
     product = ProductSerializer()
