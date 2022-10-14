@@ -1,10 +1,5 @@
 from django.conf import settings
-from telegram.ext import (
-    ApplicationBuilder,
-    CommandHandler,
-    MessageHandler,
-    filters,
-)
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 
 from congenial_bot.services import message, start
 

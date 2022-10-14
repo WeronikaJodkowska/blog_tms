@@ -7,18 +7,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Message',
+            name="Message",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateTimeField(auto_now_add=True, db_index=True)),
-                ('sender', models.CharField(blank=True, max_length=100, null=True)),
-                ('text', models.CharField(blank=True, max_length=100, null=True)),
-                ('sender_name', models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date", models.DateTimeField(auto_now_add=True, db_index=True)),
+                ("sender", models.CharField(blank=True, max_length=100, null=True)),
+                ("text", models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    "sender_name",
+                    models.CharField(blank=True, max_length=100, null=True),
+                ),
             ],
         ),
     ]
