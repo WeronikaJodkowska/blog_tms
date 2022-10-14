@@ -1,8 +1,8 @@
-import pytest
-
 from django.test.client import Client
 
 from tests.factories import PostFactory, UserFactory
+
+import pytest
 
 
 @pytest.mark.django_db

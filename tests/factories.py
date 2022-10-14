@@ -1,12 +1,10 @@
 import factory
 import factory.fuzzy
-
 from django.contrib.auth.models import User
-
 from factory.django import DjangoModelFactory
 
 from posts.models import Post
-from shop.models import Product, COLOR_CHOICES, Purchase
+from shop.models import COLOR_CHOICES, Product, Purchase
 
 
 class PostFactory(DjangoModelFactory):

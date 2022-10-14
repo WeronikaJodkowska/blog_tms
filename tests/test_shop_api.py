@@ -1,9 +1,9 @@
-import pytest
-
 from django.test.client import Client
 
 from shop.models import Purchase
-from tests.factories import PostFactory, UserFactory, PurchaseFactory, ProductFactory
+from tests.factories import ProductFactory, PurchaseFactory, UserFactory
+
+import pytest
 
 
 @pytest.mark.django_db
@@ -50,5 +50,7 @@ class TestPurchasesViews:
         product = ProductFactory()
         self.client.force_login(self.user)
 
-        response = self.client.post(f"/api/products/{product.id}/purchase/", data={"count": 1})
+        response = self.client.post(
+            f"/api/products/{product.id}/purchase/", data={"count": 1}
+        )
         assert response.status_code == 201

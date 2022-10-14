@@ -1,9 +1,7 @@
-import asyncio
-from asgiref.sync import sync_to_async, async_to_sync
-
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.core.cache import cache
-from telegram import Update, Bot
+from telegram import Bot, Update
 from telegram.ext import ContextTypes
 
 from congenial_bot.models import Message

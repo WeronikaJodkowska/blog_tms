@@ -1,9 +1,9 @@
 import faker
-import pytest
-
 from django.test.client import Client
 
 from tests.factories import UserFactory
+
+import pytest
 
 
 @pytest.mark.django_db

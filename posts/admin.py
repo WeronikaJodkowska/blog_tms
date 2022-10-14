@@ -14,9 +14,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Tag)
-class PostAdmin(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin):
     list_display = ("title",)
     # fields = ("title",)
     search_fields = ("title",)
-
-

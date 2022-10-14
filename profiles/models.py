@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db import models
 
-
 # 1. Добавить модель Address со связью One-To-Many к модели User.
+
 
 class Address(models.Model):
     user = models.ForeignKey(
@@ -10,7 +10,7 @@ class Address(models.Model):
         on_delete=models.CASCADE,
         related_name="addresses",
         blank=True,
-        null=True
+        null=True,
     )
     zipcode = models.CharField(max_length=6, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)

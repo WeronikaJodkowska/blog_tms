@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 from shop.models import Product, Purchase
-from tests.factories import PurchaseFactory
 
 
 class Command(BaseCommand):

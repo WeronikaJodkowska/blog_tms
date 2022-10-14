@@ -18,6 +18,5 @@ from django.urls import path
 from shop.views import products
 
 urlpatterns = [
-    path('', products, name='products'),
+    path("", products, name="products"),
 ]
-

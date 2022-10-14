@@ -6,13 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shop', '0004_product_external_id_product_link'),
+        ("shop", "0004_product_external_id_product_link"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='status',
-            field=models.CharField(blank=True, choices=[('IN_STOCK', ' In Stock'), ('BACK_ORDER', 'Back order'), ('DISCONTINUED', 'Discontinued'), ('OUT_OF_STOCK', 'Out of Stock')], max_length=200, null=True),
+            model_name="product",
+            name="status",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("IN_STOCK", " In Stock"),
+                    ("BACK_ORDER", "Back order"),
+                    ("DISCONTINUED", "Discontinued"),
+                    ("OUT_OF_STOCK", "Out of Stock"),
+                ],
+                max_length=200,
+                null=True,
+            ),
         ),
     ]

@@ -1,6 +1,6 @@
-import pytest
-
 from django.test.client import Client
+
+import pytest
 
 
 @pytest.mark.django_db

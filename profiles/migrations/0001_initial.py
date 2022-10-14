@@ -15,15 +15,32 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Address',
+            name="Address",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('zipcode', models.CharField(blank=True, max_length=6, null=True)),
-                ('city', models.CharField(blank=True, max_length=100, null=True)),
-                ('street', models.CharField(blank=True, max_length=100, null=True)),
-                ('building', models.CharField(blank=True, max_length=20, null=True)),
-                ('room', models.CharField(blank=True, max_length=20, null=True)),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("zipcode", models.CharField(blank=True, max_length=6, null=True)),
+                ("city", models.CharField(blank=True, max_length=100, null=True)),
+                ("street", models.CharField(blank=True, max_length=100, null=True)),
+                ("building", models.CharField(blank=True, max_length=20, null=True)),
+                ("room", models.CharField(blank=True, max_length=20, null=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="addresses",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

@@ -1,8 +1,8 @@
-from django.db.models import Sum, F, QuerySet, FloatField
-from django_rq import job
-from django.core.cache import cache
-from django.db import models
+import logging
 
+from django.db import models
+from django.db.models import F, QuerySet, Sum
+from django_rq import job
 from scrapy import signals
 from scrapy.crawler import CrawlerProcess
 from scrapy.signalmanager import dispatcher
@@ -10,8 +10,6 @@ from scrapy.utils.project import get_project_settings
 
 from shop.models import Product
 from shop.spiders import OmaSpider
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +54,10 @@ def cost_out_of_stock(request):
 
 def get_popular_products():
     queryset = Product.objects.annotate(
-        sold=Sum(F("cost") * F("purchases__count"), output_field=models.FloatField(), default=0)
+        sold=Sum(
+            F("cost") * F("purchases__count"),
+            output_field=models.FloatField(),
+            default=0,
+        )
     )
     return queryset.order_by("-sold")

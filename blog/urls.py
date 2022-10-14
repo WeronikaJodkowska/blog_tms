@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
-from posts.views import index, post_add
-from profiles.views import profiles, register, login_view, logout_view
+from posts.views import post_add
+from profiles.views import login_view, logout_view, profiles, register
 from shop.views import products
 
 urlpatterns = [

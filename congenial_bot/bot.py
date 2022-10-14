@@ -1,8 +1,12 @@
-from asgiref.sync import async_to_sync
 from django.conf import settings
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    MessageHandler,
+    filters,
+)
 
-from congenial_bot.services import start, message
+from congenial_bot.services import message, start
 
 
 def run_bot():

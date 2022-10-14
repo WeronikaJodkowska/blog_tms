@@ -1,14 +1,10 @@
-import os
 import logging
 
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from django.conf import settings
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import logout, login, authenticate
+from django.shortcuts import redirect, render
 
-from profiles.forms import RegisterForm, LoginForm
+from profiles.forms import LoginForm, RegisterForm
 from profiles.models import Address
 from profiles.services import create_user
 
@@ -26,7 +22,9 @@ def get_address(request):
         address_list = Address.objects.filter(city__contains=city)
     else:
         address_list = Address.objects.all()
-    return HttpResponse(", ".join([x.user.username for x in address_list]) + f" live in {city}")
+    return HttpResponse(
+        ", ".join([x.user.username for x in address_list]) + f" live in {city}"
+    )
 
 
 def register(request):
