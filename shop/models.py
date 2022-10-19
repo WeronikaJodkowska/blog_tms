@@ -34,10 +34,10 @@ class Product(models.Model):
         return f"Product: {self.title}"
 
 
-@receiver(post_save, sender=Product, dispatch_uid="send_message")
-def update_stock(sender, instance, **kwargs):
-    message = f"Product {instance.title} is updated"
-    requests.get(f"http://127.0.0.1:5000/?message={message}")
+# @receiver(post_save, sender=Product, dispatch_uid="send_message")
+# def update_stock(sender, instance, **kwargs):
+#     message = f"Product {instance.title} is updated"
+#     requests.get(f"http://127.0.0.1:5000/?message={message}")
 
 
 class Purchase(models.Model):
