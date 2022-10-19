@@ -105,6 +105,8 @@ DATABASES = {
     }
 }
 
+# postgres://qbstjyicambqul:a81b4fab472ec0be50809f0570fbb73ed9dc760cc4f12e5d2897617db8d65e8c@ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/dd02sdkhvfld22
+
 
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 
