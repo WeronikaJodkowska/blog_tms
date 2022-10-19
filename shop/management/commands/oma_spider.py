@@ -11,4 +11,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         dry_run = options.get("dry_run", False)
-        run_oma_spider.delay(dry_run)
+        run_oma_spider(dry_run)
+        # run_oma_spider.delay(dry_run)

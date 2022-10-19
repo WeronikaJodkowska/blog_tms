@@ -2,7 +2,7 @@ import logging
 
 from django.db import models
 from django.db.models import F, QuerySet, Sum
-from django_rq import job
+# from django_rq import job
 from scrapy import signals
 from scrapy.crawler import CrawlerProcess
 from scrapy.signalmanager import dispatcher
@@ -28,7 +28,7 @@ def get_sorted_product(queryset: QuerySet, order_by: str):
     return queryset
 
 
-@job
+# @job
 def run_oma_spider(dry_run):
     if dry_run:
         Product.objects.all().delete()
@@ -43,7 +43,7 @@ def run_oma_spider(dry_run):
     process.start()
 
 
-@job
+# @job
 def cost_out_of_stock(request):
     # logger.info("run_products_update is called")
     cost = request.GET.get("cost")
