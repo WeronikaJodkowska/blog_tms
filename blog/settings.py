@@ -108,22 +108,29 @@ DATABASES = {
 # postgres://qbstjyicambqul:a81b4fab472ec0be50809f0570fbb73ed9dc760cc4f12e5d2897617db8d65e8c@ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/dd02sdkhvfld22
 
 
-REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+# REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+#
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": f"redis://{REDIS_HOST}:6379",
+#     }
+# }
+
+# RQ_QUEUES = {
+#     "default": {
+#         "HOST": REDIS_HOST,
+#         "PORT": 6379,
+#         "DB": 0,
+#         "DEFAULT_TIMEOUT": 360,
+#     },
+# }
 
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{REDIS_HOST}:6379",
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
     }
-}
-
-RQ_QUEUES = {
-    "default": {
-        "HOST": REDIS_HOST,
-        "PORT": 6379,
-        "DB": 0,
-        "DEFAULT_TIMEOUT": 360,
-    },
 }
 
 # Password validation
