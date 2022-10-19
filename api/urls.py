@@ -3,12 +3,7 @@ from rest_framework import routers
 
 from api.auth.views import LoginView, RegisterView
 from api.posts.views import PostViewSet
-from api.shop.views import (
-    PopularProductList,
-    ProductList,
-    ProductPurchaseView,
-    PurchaseList,
-)
+from api.shop.views import PopularProductList, ProductList, ProductPurchaseView, PurchaseList
 
 app_name = "api"
 

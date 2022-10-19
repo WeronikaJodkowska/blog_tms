@@ -97,13 +97,14 @@ WSGI_APPLICATION = "blog.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "django",
-        "USER": "django",
-        "PASSWORD": "django",
+        "NAME": os.environ.get("DATABASE_NAME", "django"),
+        "USER": os.environ.get("DATABASE_USER", "django"),
+        "PASSWORD": os.environ.get("DATABASE_PASS", "django"),
         "HOST": os.environ.get("DATABASE_HOST", "localhost"),
         "PORT": 5432,
     }
 }
+
 
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 
